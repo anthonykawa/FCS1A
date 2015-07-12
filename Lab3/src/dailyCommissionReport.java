@@ -13,9 +13,10 @@ public class dailyCommissionReport {
 		double totalSales = 0.0;
 		String[] salesData = {};
 		double totalSalesCommission = 0.0;
-		
+	
 		agentID = getAgentID();
 		agentName = getAgentName();
+		
 		while (x==0){
 			reportMenu();
 			getAgentChoice = getAgentChoice();
@@ -37,12 +38,12 @@ public class dailyCommissionReport {
 			}
 		}			
 	}
-	
+	// ask for Agent ID from the agent
 	public static int getAgentID(){
 		BufferedReader br = null;
 		String buffer = "";
 		int agentID = 0;
-		
+		// use BufferedReader to get i
 		try {
 			br = new BufferedReader (new InputStreamReader (System.in));
 			System.out.print("Enter your agent ID: ");
@@ -55,11 +56,11 @@ public class dailyCommissionReport {
 		
 		return agentID;
 	}
-	
+	// ask for the name of the agent
 	public static String getAgentName(){
 		BufferedReader br = null;
 		String agentName = "";
-		
+		// use BufferReader to ask user to input agent ID. 
 		try {
 			br = new BufferedReader (new InputStreamReader (System.in));
 			System.out.print("Enter your name: ");
@@ -71,8 +72,8 @@ public class dailyCommissionReport {
 		
 		return agentName;
 	}
-	
-	public static void printHeader(){
+	// Menu header
+	public static void menuHeader(){
 		String printDate = getCurrentDate();
 		
 		System.out.println("WELCOME TO SALES REPORT");
@@ -80,18 +81,18 @@ public class dailyCommissionReport {
 		
 		
 	}
-	
+	// Print the initial menu items
 	public static void reportMenu(){
-		printHeader();
+		menuHeader();
 		System.out.println("R (Report Sales)");
 		System.out.println("Q (Quit)");
 	}
-	
+	// get menu choice from Agent
 	public static char getAgentChoice(){
 		BufferedReader br = null; 
 		String buffer = "";
 		char agentChoice = '\0';
-		
+		// use BufferReader to ask user to input menu choice (report and quit)
 		try {
 			br = new BufferedReader (new InputStreamReader (System.in));
 			System.out.print("Enter your choice: ");
@@ -104,8 +105,7 @@ public class dailyCommissionReport {
 		}
 		return agentChoice;
 	}
-	
-	
+	// get tickets sold and price of each ticket from Agent
 	public static String[] getSalesData(){
 		String[]data = new String[2];
 		BufferedReader br = null; 
@@ -132,11 +132,11 @@ public class dailyCommissionReport {
 		
 		return data;
 	}
-	
+	// get the current date
 	public static String getCurrentDate ( ) {
         return new SimpleDateFormat("EEE MMM dd,yyyy hh:mm:ss a").format (Calendar.getInstance ( ).getTime ( )) ;
 	}
-	
+	// computer the total sales made for each session
 	public static double computeTotalSales(String[] data){
 		double totalSales = 0.0;
 		int ticketsSold = 0;
@@ -146,11 +146,10 @@ public class dailyCommissionReport {
 		ticketPrice = Double.parseDouble(data[1]);
 		
 		totalSales = ticketsSold*ticketPrice;
-		
-		
+			
 		return totalSales;
 	}
-	
+	// use totalSales and totalSalesCommission to calculate sales commission
 	public static double computeSalesCommission(double totalSales, double totalSalesCommission){
 		double salesCommission = 0.0;
 		final double COMM_RATE_LEVEL_1 = 0.025;
@@ -174,11 +173,12 @@ public class dailyCommissionReport {
 		totalSalesCommission += salesCommission;
 		return totalSalesCommission;
 	}
-	
+	// display the sales commission earned by the agent
 	public static void showAgentCommission(double salesCommission, String agentName){
 		System.out.format("Congratulations agent " + agentName  + ", your current daily commission is: $ %9.2f%n", salesCommission);
 		
 	}
+	// display a message when incorrect input is made in the menu
 	public static void handleInvalidData(){
 		System.out.println("“*** Enter R,r or Q,q only please ***”");
 	}
